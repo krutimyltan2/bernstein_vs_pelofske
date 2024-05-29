@@ -1,5 +1,6 @@
 .SUFFIXES: .c .o .so
-CC=clang
+#CC=clang
+CC=gcc
 CFLAGS+=-std=c11 -pedantic -Wall -Werror -Wstrict-prototypes
 CFLAGS+=-Wmissing-prototypes -Wmissing-declarations -Wshadow
 CFLAGS+=-Wpointer-arith -Wcast-qual -Wsign-compare
@@ -8,6 +9,9 @@ CLAGSS+=-O3 -DNDEBUG
 CFLAGS+=-fstack-protector-all -Wtype-limits -fno-common
 CFLAGS+=-fno-builtin
 CFLAGS+=-I/usr/local/include
+
+CFLAGS+=-D_DEFAULT_SOURCE -I/usr/local/include/flint
+LDFLAGS+=-L/usr/local/lib -lflint -lgmp
 
 BUILD=build
 
