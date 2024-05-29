@@ -1,0 +1,56 @@
+
+    ____  __________  _   ________________________   __
+   / __ )/ ____/ __ \/ | / / ___/_  __/ ____/  _/ | / /
+  / __  / __/ / /_/ /  |/ /\__ \ / / / __/  / //  |/ / 
+ / /_/ / /___/ _, _/ /|  /___/ // / / /____/ // /|  /  
+/_____/_____/_/ |_/_/ |_//____//_/ /_____/___/_/ |_/   
+                                                       
+                     _    _______
+                    | |  / / ___/
+                    | | / /\__ \ 
+                    | |/ /___/ / 
+                    |___//____/  
+                                 
+    ____  ________    ____  ___________ __ __ ______
+   / __ \/ ____/ /   / __ \/ ____/ ___// //_// ____/
+  / /_/ / __/ / /   / / / / /_   \__ \/ ,<  / __/   
+ / ____/ /___/ /___/ /_/ / __/  ___/ / /| |/ /___   
+/_/   /_____/_____/\____/_/    /____/_/ |_/_____/   
+                                                    
+
+-- 1 - Build
+
+On BSD
+
+  $ make
+
+usually works. On Linux one might have to use
+
+  $ bmake
+
+
+-- 2 - Generation of keys
+
+  $ ./tools/gen 1000000 1024 > /tmp/primes_1024.txt
+  $ ./tools/gen 1000000 2048 > /tmp/primes_2048.txt
+
+
+-- 3 - Spew test files
+
+To get the test cases that correspond to those in [1] one can use the
+py/spew.py utility. It will produce some generated test cases for that
+one may run the timing on.
+
+This produces test files in the generated/ subdirectory, assuming it
+exist.
+
+
+-- 4 - Timing
+
+Run
+
+  $ ./timer.sh
+
+this will also produce the files /tmp/timing_0512_nnnn.txt and
+/tmp/timing_1024_nnnn.txt that contains a clean list of the timing results
+(that can be used in plots for example), and accompanying plots.
