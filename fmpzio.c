@@ -37,6 +37,26 @@ read_all_stdin(const size_t base_alloc)
   return buffer;
 }
 
+static inline char*
+whitespace_sep(char **s) {
+  char *orig = *s;
+
+  if(**s == '\0') {
+    return NULL;
+  }
+
+  while(**s != '\0') {
+    if (**s == ' ' || **s == '\t' || **s == '\n') {
+      **s = '\0';
+      (*s)++;
+      break;
+    }
+    (*s)++;
+  }
+
+  return orig;
+}
+
 slong
 read_hex_lines(fmpz **v)
 {
@@ -53,7 +73,7 @@ read_hex_lines(fmpz **v)
   slong ntokens = 0, tokens_alloc = BASE_ALLOC;
   char **tokens = malloc(tokens_alloc * sizeof(*tokens));
 
-  while ((tokens[ntokens] = strsep(&s, " \n\t")) != NULL) {
+  while ((tokens[ntokens] = whitespace_sep(&s)) != NULL) {
     ntokens++;
 
     if (ntokens == tokens_alloc) {
@@ -64,11 +84,6 @@ read_hex_lines(fmpz **v)
         err(EXIT_FAILURE, "reallocating tokens failed");
       }
     }
-  }
-
-  // ignore last if it is the empty string
-  if (tokens[ntokens][0] == '\0') {
-    ntokens--;
   }
 
   *v = _fmpz_vec_init(ntokens);
